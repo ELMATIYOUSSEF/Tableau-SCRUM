@@ -273,7 +273,7 @@
 									<i class="fa fa-check" aria-hidden="true"></i>
 								</div>
 								<div class="col d-flex flex-column justify-content-start align-items-start">
-									<div class="fs-5">Provide contact information</div>
+						²			<div class="fs-5">Provide contact information</div>
 									<div class="m-2">
 										<div class="text-start">#13 created in 2022-10-08</div>
 										<div class="" title="of the person that reported the bug. This will not always be possible, but in some cases it might be advantageous and most effective if a developer can have a chat with a person that actually experienced the bug, especially if the steps to reproduce a problem are not deterministic.">of the person that reported the bug. This will not alwa...</div>
@@ -300,13 +300,13 @@
 	
 	<!-- TASK MODAL -->
 
-		<!-- Modal content goes here -->
+		<!-- Modal content for add -->
 	
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+        <h5 class="modal-title titre" id="exampleModalLabel">Add Task</h5>
         <button type="button" id="btn-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -340,6 +340,7 @@
 				<option value="Story">Story</option>
 				<option value="Task">Task</option>
 				<option value="Bug">Bug</option>
+				<option value="High">Bug</option>
 			  </select>
 		</div>
 		<div>
@@ -363,8 +364,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ><a href="./index.html" class="list-group-item">Cancel</a> </button>
-        <button type="button" class="btn btn-primary" onclick="createTask()">Save</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ><a href="./index.html" class="">Cancel</a> </button>
+        <button type="button" class="btn btn-primary save" onclick="createTask()">Add</button>
       </div>
     </div>
   </div>

@@ -159,7 +159,15 @@ var tasks = [
         'id':'',
     },
 ];
-var countasks =0
+let Priority =document.getElementById("selectProiority");
+let Status =document.getElementById("selectStatus");
+let save = document.querySelector(".save");
+let titre = document.querySelector(".titre");
+let typeValue = document.querySelector(".form-check-input:checked");
+let titelvalue =document.querySelector("#titel") ;
+let date =document.getElementById("date");
+let description = document.getElementById("description");
+var countasks =0;
 let todoTasksBtn = document.getElementById("to-do-tasks");
 let progressBtn = document.getElementById("in-progress-tasks");
 let doneBtn = document.getElementById("done-tasks");
@@ -171,19 +179,11 @@ function clairTable()
 }
 ReadData();
 
-  //---------------------------------------------------------------------------//
-  /**
- * In this file app.js you will find all CRUD functions name.
- * 
- */
-
+// ----------------------------------- ReadData from table tasks -----------------------//
 function ReadData() {
     clairTable();
     // initialiser task form
-    var countasks =0 ;
-    var countTodo=0;
-    var countInporgess =0 ;
-    var countDone =0 ;
+    var countasks =0 ,countTodo=0 ,countInporgess =0 , countDone =0 ;
     for(let i = 0; i < tasks.length; i++){
         if(tasks[i].status == "To Do"){
            countTodo++;
@@ -198,7 +198,7 @@ function ReadData() {
                 <div class="fs-5 text-start">${tasks[i].title}</div>
                 <div class="m-2">
                     <div class="text-start">#<span id="idTaskTodo">${countasks}</span>  ${tasks[i].date}</div>
-                    <div class="text-start" title="${tasks[i].description}">${tasks[i].description.substring(0,50)}...</div>
+                    <div class="text-start" title="${tasks[i].description}">${tasks[i].description.substring(0,50)}</div>
                 </div>
                 <div class="m-2">
                     <span class="btn-sm btn-primary">${tasks[i].type}</span>
@@ -220,7 +220,7 @@ function ReadData() {
             <div class="fs-5 text-start">${tasks[i].title}</div>
             <div class="m-2">
                 <div class="text-start">#<span id="idTaskProgress">${countasks}</span>  ${tasks[i].date}</div>
-                <div class="text-start" title="${tasks[i].description}">${tasks[i].description.substring(0,50)} ...</div>
+                <div class="text-start" title="${tasks[i].description}">${tasks[i].description.substring(0,50)}</div>
             </div>
             <div class="m-2">
                 <span class="btn-sm btn-primary">${tasks[i].type}</span>
@@ -242,7 +242,7 @@ function ReadData() {
             <div class="fs-5 text-start">${tasks[i].title}</div>
             <div class="m-2">
                 <div class="text-start">#<span id="idTaskdone">${countasks}</span>  ${tasks[i].date}</div>
-                <div class="text-start" title="${tasks[i].description}">${tasks[i].description.substring(0,50)}...</div>
+                <div class="text-start" title="${tasks[i].description}">${tasks[i].description.substring(0,50)}</div>
             </div>
             <div class="m-2">
                 <span class="btn-sm btn-primary">${tasks[i].type}</span>
@@ -258,23 +258,24 @@ function ReadData() {
 
 }  
 }
-///---------------------------- create task ------------------------------
+///---------------------------- create task ------------------------------//
 function createTask(){
+    let btnsaveupdate = document.querySelector(".save").innerText;
+    if(btnsaveupdate=='Add'){
     clairTable();
-    let Checkstatus =document.getElementById("selectStatus").value;
     const newTasks = {
-        title:document.getElementById("titel").value ,
-        type: document.querySelector(".form-check-input:checked").value,
-        priority: document.getElementById("selectProiority").value,
-        status: Checkstatus,
+        title:titelvalue.value ,
+        type: typeValue.value,
+        priority: Priority.value,
+        status:  Status.value,
         id:countasks,
-        date:document.getElementById("date").value ,
-        description: document.getElementById("description").value,
+        date:date.value ,
+        description: description.value,
     }
-    if(Checkstatus=="To Do"){
+    if(Status=="To Do"){
       document.getElementById("to-do-tasks-count").innerText+=1;
     }
-    else if(Checkstatus=="In Progress"){
+    else if(Status=="In Progress"){
         document.getElementById("in-progress-tasks-count").innerText+=1;
     }
     else{
@@ -282,7 +283,6 @@ function createTask(){
     }
     tasks.push(newTasks);
     console.log(tasks);
-    //document.getElementById("alertadd").style.display="";
     //setTimeout(close,2000 );
     close();
     ReadData();
@@ -293,55 +293,63 @@ function createTask(){
         showConfirmButton: false,
         timer: 1500
       })
+    }
+    if(btnsaveupdate.innerText ='Update')
+    {
+        var idup = document.querySelector("#idup");
+        update(idup.value);
+        close();
+        ReadData();
+    }
 }
+// ----------------------------- function ClearFrom() ---------------------------//
+function ClearFrom(){
+    titelvalue.value= '' ;
+    document.querySelector("#flexRadioDefault1").checked =true;
+    Status.value = '';
+    Priority.value = '';
+    date.value = '';
+    description.value = ''
+    save.innerHTML = "Add";
+    titre.innerHTML = `Add Task`;
+}
+//-------------------------- function close -------------------------- //
 function close(){
     document.getElementById("btn-close").click(); 
 }
-
-// editTask() ;
-// function editTask() {
-//   let btn = document.getElementsByClassName("btntash");
-// }
+//-------------------------- function update && delete --------------------------//
 function updatedelete(id){
-    //alert(id);
     Swal.fire({
-        title: 'Do you want to save the changes?',
+        title: 'Do you want to update or remove task?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'update',
         denyButtonText: `Delete`,
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
+        //if confirmed up date
         if (result.isConfirmed) {
           $("#exampleModal").modal('show')
+          Remplaireform(id);
         } else if (result.isDenied) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "You won't To delete it !",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
               }).then((result) => {
+                //if confirmed delete
                 if (result.isConfirmed) {
-                   // let obj = search(id);
-                    // console.log(Object.values(obj));
-                    // console.log("-------------");
-                    tasks.splice(id-1,1);
-                    // console.log(tasks);
-                    // clairTable();
-                    // ReadData();
-                //     let idd = "task"+id
-                //    let deletebtn= document.getElementById(idd);
-                //    deletebtn.innerHTML='';
-                ReadData();
+                    deleteT(id);
+                    ReadData();
                 }
               })
         }
       })
 }
-
+// ------------------------ function search by id -----------------------------------
 function search(id){
     for(let i =0 ; i<tasks.length;i++)
     {
@@ -360,3 +368,45 @@ function search(id){
     return objtask;
 }
 
+//------------------------------- function RemplaireForm -------------------------------------
+ function Remplaireform(id){
+   let obj = search(id);
+   titelvalue.value= obj.title ;
+   checkType(obj.type);
+   Status.value = obj.status;
+   Priority.value = obj.priority;
+   console.log(obj.priority);
+   date.value = obj.date;
+   description.value = obj.description
+   save.innerHTML = "Update";
+   titre.innerHTML = `Update id :<div> <input type="text" id="idup" value= "${obj.id}"></div>`;
+
+ }
+ //--------------------------------------function update ---------------------------------//
+function update(id)
+{
+    let pbj =search(id);
+    pbj.title = titelvalue.value ;
+    pbj.type=typeValue.value;
+    pbj.priority = Priority.value;
+    pbj.status =Status.value;
+    pbj.date = date.value;
+    pbj.description= description.value;
+    tasks[id-1]=pbj;
+}
+
+ //-------------------------------- function delete -----------------------------------
+ function deleteT(id){
+    tasks.splice(id-1,1);
+ }
+ //---------------------------------- function checktype of radio button for function up date ------------------------
+ function checkType(typeV)
+ {
+    if(typeV =="Bug"){
+        document.querySelector("#flexRadioDefault2").checked =true;
+    }
+    else{
+        document.querySelector("#flexRadioDefault1").checked = true;
+    }
+ }
+ 

@@ -1,17 +1,11 @@
 .pace {
     display: none;
 }
-body{
-    background-color: rgb(53, 51, 51);
-}
 
 .main-style {
     min-height: 100vh;
-    background: url(../img/cover/Capture-removebg-preview\ \(1\).png) no-repeat fixed;
+    background: url(../img/cover/cover-scrum-board.png) no-repeat fixed;
     background-size: 360px;
     background-position: right bottom;
 }
-.clr
-{
-    background-color:rgb(182, 174, 174);
-}
+

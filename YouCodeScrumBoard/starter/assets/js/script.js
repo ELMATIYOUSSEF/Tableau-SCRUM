@@ -1,23 +1,26 @@
+// ---------------------------------- declaring all variable ------------------------------- //
 let Priority =document.getElementById("selectProiority");
 let Status =document.getElementById("selectStatus");
 let save = document.querySelector(".save");
 let titre = document.querySelector(".titre");
 let typeValue = document.querySelector(".form-check-input:checked");
-let titelvalue =document.querySelector("#titel") ;
+let titelValue =document.querySelector("#titel");
 let date =document.getElementById("date");
 let description = document.getElementById("description");
-var countasks =0;
+var counTasks =0;
 let todoTasksBtn = document.getElementById("to-do-tasks");
 let progressBtn = document.getElementById("in-progress-tasks");
 let doneBtn = document.getElementById("done-tasks");
+//-------------------------------------   function ClairTable     ------------------------------------ //
 function clairTable()
 {
     document.getElementById("to-do-tasks").innerHTML="";
     document.getElementById("in-progress-tasks").innerHTML ="";
     document.getElementById("done-tasks").innerHTML ="";
 }
+// ------------------------------------  call function Read Data  ------------------------ //
 ReadData();
-// ----------------------------------- ReadData from table tasks -----------------------//
+// ------------------------------------ ReadData from table tasks -----------------------//
 function ReadData() {
     clairTable();
     // initialiser task form
@@ -95,17 +98,17 @@ function ReadData() {
     document.getElementById("to-do-tasks-count").innerText = countTodo ;
 }  
 }
-///---------------------------- create task ------------------------------//
+///------------------------------------      create task          ------------------------------//
 function createTask(){
     let btnsaveupdate = document.querySelector(".save").innerText;
     if(btnsaveupdate=='Add'){
     clairTable();
     const newTasks = {
-        title:titelvalue.value ,
+        title:titelValue.value ,
         type: typeValue.value,
         priority: Priority.value,
         status:  Status.value,
-        id:countasks,
+        id:counTasks,
         date:date.value ,
         description: description.value,
     }
@@ -137,9 +140,9 @@ function createTask(){
         ReadData();
     }
 }
-// ----------------------------- function ClearFrom() ---------------------------//
+// ------------------------------------   function ClearFrom()    ---------------------------//
 function ClearFrom(){
-    titelvalue.value= '' ;
+    titelValue.value= '' ;
     document.querySelector("#flexRadioDefault1").checked =true;
     Status.value = '';
     Priority.value = '';
@@ -148,11 +151,11 @@ function ClearFrom(){
     save.innerHTML = "Add";
     titre.innerHTML = `Add Task`;
 }
-//-------------------------- function close -------------------------- //
+//-------------------------------------      function close       -------------------------- //
 function close(){
     document.getElementById("btn-close").click(); 
 }
-//-------------------------- function update && delete --------------------------//
+//------------------------------------- function update && delete --------------------------//
 function updatedelete(id){
     Swal.fire({
         title: 'Do you want to update or remove task?',
@@ -184,7 +187,7 @@ function updatedelete(id){
         }
       })
 }
-// ------------------------ function search by id -----------------------------------
+// ------------------------------------  function search by id    --------------------------//
 function search(id){
     for(let i =0 ; i<tasks.length;i++)
     {
@@ -193,10 +196,10 @@ function search(id){
      }   
     }
 }
-//------------------------------- function RemplaireForm -------------------------------------
+//------------------------------------- function RemplaireForm    --------------------------//
  function Remplaireform(id){
    let obj = search(id);
-   titelvalue.value= obj.title ;
+   titelValue.value= obj.title ;
    checkType(obj.type);
    Status.value = obj.status;
    Priority.value = obj.priority;
@@ -205,11 +208,11 @@ function search(id){
    save.innerHTML = "Update";
    titre.innerHTML = `Update id :<div> <input style="display: none ;" type="text" id="idup" value= "${obj.id}"></div>`;
  }
- //--------------------------------------function update ---------------------------------//
+ //------------------------------------     function update       --------------------------//
 function update(id)
 {
     let pbj =search(id);
-    pbj.title = titelvalue.value ;
+    pbj.title = titelValue.value ;
     pbj.type=typeValue.value;
     pbj.priority = Priority.value;
     pbj.status =Status.value;
@@ -217,11 +220,11 @@ function update(id)
     pbj.description= description.value;
     tasks[id-1]=pbj;
 }
- //-------------------------------- function delete -----------------------------------
+ //------------------------------------     function delete       --------------------------//
  function deleteT(id){
     tasks.splice(id-1,1);
  }
- //---------------------------------- function checktype of radio button for function up date ------------------------
+ //-------------------- function checktype of radio button for function up date ------------//
  function checkType(typeV)
  {
     if(typeV =="Bug"){

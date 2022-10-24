@@ -26,16 +26,15 @@
 			<div class=" w-100 d-flex justify-content-between">
 				<div>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a class="text-decoration-none" href="javascript:;">Home</a></li>
-						<li class="breadcrumb-item active">Scrum Board </li>
+						<li class="breadcrumb-item"><a class="text-decoration-none text-white" href="javascript:;">Home</a></li>
+						<li class="breadcrumb-item active text-white">Scrum Board </li>
 					</ol>
 					<!-- BEGIN page-header -->
-					<h1 class="page-header mt-4">
+					<h1 class="page-header text-white mt-4">
 						Scrum Board 
 					</h1>
 					<!-- END page-header -->
 				</div>
-				
 				<div class="m-2">
 					<button id="addTask" onclick="ClearFrom()" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa fa-add" ></i> Add Task</a>
 				</div>
@@ -364,7 +363,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ><a href="./index.html" class="">Cancel</a> </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ><a href="./index.html" class="text-decoration-none text-white">Cancel</a> </button>
         <button type="button" class="btn btn-primary save" onclick="createTask()">Add</button>
       </div>
     </div>
@@ -372,6 +371,7 @@
 </div>
 	
 	<!-- ================== BEGIN core-js ================== -->
+	<script src="/YouCodeScrumBoard/starter/assets/js/data.jsa"></script>
 	<script src="/YouCodeScrumBoard/starter/assets/js/script.js"></script>
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="assets/js/app.min.js"></script>
